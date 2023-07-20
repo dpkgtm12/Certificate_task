@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verify Certificate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            color: #337ab7;
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #337ab7;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #337ab7;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #23527c;
+        }
+
+        .certificate-details {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-details h2 {
+            color: #337ab7;
+            margin-bottom: 15px;
+        }
+
+        .certificate-details strong {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .download-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .download-link a {
+            color: #337ab7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .download-link a:hover {
+            text-decoration: underline;
+        }
+
+        .linkedin-button,
+        .portfolio-link {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 12px 20px;
+            color: #fff;
+            text-decoration: none;
+            background-color: #0077B5;
+            /* LinkedIn blue color */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .linkedin-button:hover,
+        .portfolio-link:hover {
+            background-color: #005FAB;
+        }
+
+        footer {
+            bottom: 0;
+            position: fixed;
+            /* text-align: center; */
+            height: fit-content;
+            width: 100%;
+            font-family: sans-serif;
+            font-size: 19px;
+            padding: 2.5vh 3vh;
+            margin: 16px 0px 4px -250px;
+            background-color: rgb(88, 84, 84);
+            color: white;
+
+        }
+
+        .term {
+            padding: 0px 2.5vw;
+            font-size: 21px;
+            text-align: center;
+
+        }
+
+        .copy {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Verify Certificate</h1>
+    <form action="/">
+        <input type="submit" value="Go to Home" style="margin-left: 700px; background-color: #0077B5;">
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        <label for="certificate_id">Certificate ID:</label>
+        <input type="number" id="certificate_id" name="certificate_id" required><br>
+        <input type="submit" value="Verify">
+    </form>
+    {% if certificate %}
+    <div class="certificate-details">
+        <h2>Certificate Details:</h2>
+        <p><strong>Name:</strong> {{ certificate.name }}</p>
+        <p><strong>Content:</strong> {{ certificate.content }}</p>
+        <div class="download-link">
+            <a href="{% url 'download_certificate' certificate_id=certificate.id %}">Download Certificate</a>
+        </div>
+    </div>
+    {% elif bool %}
+    <p style="color:red;">No certificate found with the given ID.</p>
+    {% endif %}
+    <div align="center">
+        <h2>This page is Created by <a href="https://www.linkedin.com/in/deepakGautam12/"> Deepak</a>.
+            Connect with Me</h2>
+            <div style="margin-bottom: 100px;">
+                <a class="linkedin-button" href="https://www.linkedin.com/in/deepakGautam12/" target="_blank">Connect on
+                    LinkedIn</a>
+                <a class="portfolio-link" href="https://dpkgtm12.github.io/dpkgtm12/" target="_blank">View Portfolio</a>
+            </div>
+    </div>
+    <footer>
+        <div class="copy">
+            All rights reserved &copy;2023 Deepak Gautam
+        </div>
+    </footer>
+</body>
+
+</html>
